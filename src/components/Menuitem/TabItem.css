@@ -1,0 +1,16 @@
+.nav-item{
+    background-color: #F3D01F;
+}
+@media screen and (max-width: 768px) {
+    .btn {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .btn {
+        font-size: 12px;
+        padding: 3px 3px;
+    }
+}

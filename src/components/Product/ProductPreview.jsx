@@ -1,54 +1,72 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { ProductPreviewCard } from './ProductPriviewCard';
+import ProductPreviewCard from './ProductPriviewCard';
+import "./ProductPreview.css"
 
-const ProductPriview = () => {
-    const [products,setProducts]= useState([]);
+const ProductPreview = () => {
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const responsive = {
-        superLargeDesktop: {
-          // the naming can be any, depends on you.
-          breakpoint: { max: 4000, min: 3000 },
-          items: 5
-        },
         desktop: {
-          breakpoint: { max: 3000, min: 1024 },
-          items: 3
+            breakpoint: { max: 3000, min: 1024 },
+            items: 4,
+            slidesToSlide: 4 
         },
         tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 2
+            breakpoint: { max: 1024, min: 768 },
+            items: 3,
+            slidesToSlide: 3 
         },
         mobile: {
-          breakpoint: { max: 464, min: 0 },
-          items: 1
+            breakpoint: { max: 767, min: 464 },
+            items: 2,
+            slidesToSlide: 1 
         }
-      };
+    };
 
-      useEffect(()=>{
-        fetch('http://localhost:8000/api/products-by-categories')
-        .then(response => response.json())
-        .then(data =>setProducts(data?.data))
-        .catch(e=>console.log(e))
+    useEffect(() => {
+        fetch('http://localhost:8000/api/khuyen_mai/khuyen_mais')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setProducts(data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
+    }, []);
 
-      },[])
     return (
-      <div className="container mx-auto pb-4" style={{ maxWidth: '66.66%',color: 'white', backgroundColor: 'black' }}>
-            <Carousel responsive={responsive}>
-                {products.map((category, index) => (
-                    category.products.map((product, productIndex) => (
-                        product.category.name === "buffet" && (
-                            <div className="w-100 p-3" key={productIndex}>
+        <div className="app__header " >
+            {loading ? (
+                <div>Loading...</div>
+            ) : (
+                <div className="carousel">
+                    <Carousel
+                        responsive={responsive}
+                        cellAlign={"left"}
+                        disableEdgeSwiping={true}
+                        wrapAround={true}
+                        autoplay={true}
+                    >
+                        {products.map((product, index) => (
+                            <div className="" key={index}>
                                 <ProductPreviewCard product={product} />
                             </div>
-                        )
-                    )
-                    )
-                ))}
-            </Carousel>
+                        ))}
+                    </Carousel>
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default ProductPriview
+export default ProductPreview;

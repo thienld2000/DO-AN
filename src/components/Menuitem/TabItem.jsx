@@ -1,14 +1,23 @@
-export const TabItem = ({ title, index, active, setActive }) => {
-    const className = active ? 'border-bottom border-4 border-yellow' : 'border-none text-muted';
+import { Button } from 'react-bootstrap';
+import "./TabItem.css"
+export const TabItem = ({ title, active, setActive }) => {
+    const buttonClassName = `btn ${active ? 'shadow  border border-danger' : 'border-0 text-muted'}`;
 
     return (
-        <div className="nav-item px-2">
-            <button onClick={() => setActive(title)} className="btn pt-7 pb-3">
-                <span className={`text-decoration-underline ${active ? 'text-yellow' : 'text-muted'}`}>
-                    {title.toUpperCase()}
-                </span>
-            </button>
+        <div className="mx-auto align-items-center py-2 ">
+            <div className="nav-item m-1 flex-grow-1 bg-body-secondary mx-2">
+                <Button
+                    variant="light"
+                    className={buttonClassName}
+                    onClick={() => setActive(title)}
+                    style={{ paddingTop: '5px', paddingBottom: '3px' }}
+                >
+                    <b className={` ${active ? 'text-warning' : 'text-muted'}`}>
+                        {title.toUpperCase()}
+                    </b>
+                </Button>
+                
+            </div>
         </div>
-
-    )
-}
+    );
+};

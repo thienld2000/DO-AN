@@ -4,11 +4,14 @@ import { MdOutlineRestaurantMenu } from 'react-icons/md';
 import images from '../../constants/images';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../stores/user/authSlice';
 
 const Navbar = () => {
-
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
   const [toggleMenu, setToggleMenu] = useState(false);
-  // xử lý cuộn thanh navbar 
+
   useEffect(() => {
     const navbar = document.getElementById("navbar");
     const sticky = navbar.offsetTop;
@@ -20,37 +23,42 @@ const Navbar = () => {
         navbar.classList.remove("sticky");
       }
     };
-
     window.addEventListener('scroll', stickyNavbar);
-
-    // Cleanup function to remove the event listener when the component is unmounted
     return () => {
       window.removeEventListener('scroll', stickyNavbar);
     };
   }, []);
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
-  const handleBooking = () => {
-
-  }
   return (
-    <nav className="app__navbar" id="navbar">
+    <nav className="app__navbar " id="navbar">
       <div className="app__navbar-logo">
-        <Link to ="/"><img src={images.logo_yakimono} alt="app__logo" /></Link>
+        <Link to="/"><img src={images.logo_yakimono} alt="app__logo" /></Link>
       </div>
-      <ul className="app__navbar-links">
-        <li className="p__opensans"><Link to ="/">Home</Link></li>
-        <li className="p__opensans"><a href="#about">About Us</a></li>
-        <li className="p__opensans"><a href="#menu">Menu</a></li>
-        <li className="p__opensans"><a href="#awards">Khuyến Mãi</a></li>
-        <li className="p__opensans"><a href="#contact">Liên hệ</a></li>
-       
+      <ul className="app__navbar-links ">
+        <li className="p__opensans"><a href="#home"><i className="bi bi-house-door"></i><b> Trang chủ</b></a></li>
+        <li className="p__opensans"><a href="#about"><i className="bi bi-people"></i><b> Giới thiệu</b></a></li>
+        <li className="p__opensans"><a href="#menu"><i className="bi bi-menu-app"></i><b> Menu</b></a></li>
+        <li className="p__opensans"><a href="#khuyenmai"><i className="bi bi-gift"></i><b> Khuyến Mãi</b></a></li>
+        <li className="p__opensans"><a href="https://www.facebook.com/Yakimono.com.vn"><i className="bi bi-file-post"></i><b>Page</b></a></li>
+        <li className="p__opensans"><a href="#contact"><i className="bi bi-telephone-outbound"></i><b> Liên hệ</b></a></li>
       </ul>
       <div className="app__navbar-login">
-      <Link to="/blog" ><button className="p__opensans btn-login">Pos t </button></Link>
-        <Link to="/login" ><button className="p__opensans btn-login">Log In </button></Link>
-        <div />
-        <Link to="/booking"><button className="p__opensans btn_booking">Đặt Bàn</button></Link>
+        {
+          isAuthenticated ? <button onClick={handleLogout} className="p__opensans btn-login"><i className="bi bi-box-arrow-left"></i><b>Đăng xuất</b> </button> :
+            (
+              <>
+                <Link to="/login" ><button className="p__opensans btn-login"><i className="bi bi-box-arrow-in-right"></i><b> Đăng nhập</b> </button></Link>                  
+                <div />
+                <Link to="/register" ><button className="p__opensans btn-login"><i className="bi bi-person-plus"></i><b>  Đăng ký </b></button></Link>
+              </>
+            )
+        }
+         <div />
+        <Link to="/booking"><button className="p__opensans btn_booking"><i className="bi bi-cart"></i><b> Đặt Bàn</b></button></Link>
       </div>
       <div className="app__navbar-smallscreen">
         <GiHamburgerMenu color="#fff" fontSize={27} onClick={() => setToggleMenu(true)} />
@@ -58,11 +66,25 @@ const Navbar = () => {
           <div className="app__navbar-smallscreen_overlay flex__center slide-bottom">
             <MdOutlineRestaurantMenu fontSize={27} className="overlay__close" onClick={() => setToggleMenu(false)} />
             <ul className="app__navbar-smallscreen_links">
-              <li ><a href="#home" onClick={() => setToggleMenu(false)}>Home</a></li>
-              <li><a href="#about" onClick={() => setToggleMenu(false)}>About</a></li>
+              <li ><a href="#home" onClick={() => setToggleMenu(false)}>Trang chủ</a></li>
+              <li><a href="#about" onClick={() => setToggleMenu(false)}>Giới thiệu</a></li>
               <li><a href="#menu" onClick={() => setToggleMenu(false)}>Menu</a></li>
-              <li><a href="#awards" onClick={() => setToggleMenu(false)}>Awards</a></li>
-              <li><a href="#contact" onClick={() => setToggleMenu(false)}>Contact</a></li>
+              <li><a href="#khuyenmai" onClick={() => setToggleMenu(false)}>Khuyenmai</a></li>
+              <li><a href="#contact" onClick={() => setToggleMenu(false)}>Liên hệ</a></li>
+              <li>
+              {
+                  isAuthenticated ? <button onClick={handleLogout} className="p__opensans btn-login"><i className="bi bi-box-arrow-left"></i>
+                   Đăng xuất </button> :
+                    (
+                      <>
+                        <Link to="/login" ><button className="p__opensans btn-login"><i className="bi bi-box-arrow-in-right"></i>Đăng nhập </button></Link>                  
+                        <div />
+                        <Link to="/register" ><button className="p__opensans btn-login mt-5"><i className="bi bi-person-plus"></i>  Đăng ký </button></Link>
+                      </>
+                    )
+                }
+              </li>
+              <li><Link to="/booking"><button className="p__opensans btn_booking"><i className="bi bi-cart"></i> Đặt Bàn</button></Link></li>
             </ul>
           </div>
         )}

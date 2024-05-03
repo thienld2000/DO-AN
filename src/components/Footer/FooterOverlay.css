@@ -7,12 +7,6 @@
     flex-direction: column;
     position: absolute;
 }
-
-.app__footerOverlay-black {
-    height: 25%;
-    background: var(--color-black);
-}
-
 .app__footerOverlay-img {
-    height: 75%;
+    height: 90%;
 }

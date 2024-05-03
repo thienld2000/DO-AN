@@ -10,21 +10,21 @@ const Chef = () => (
       <img src={images.chef} alt="chef_image" />
     </div>
     <div className="app__wrapper_info">
-      <SubHeading title="Chef's word" />
-      <h1 className="headtext__cormorant">What we believe in</h1>
+      <SubHeading title="Đầu bếp" />
+      <h1 className="headtext__cormorant">Điều chúng tôi tin tưởng</h1>
 
       <div className="app__chef-content">
         <div className="app__chef-content_quote">
           <img src={images.quote} alt="quote_image" />
-          <p className="p__opensans">Lorem ipsum dolor sit amet, consectetur adipiscing elit auctor sit .</p>
+          <p className="p__opensans">Chất lượng là trên hết, sự hài lòng của khách hàng là ưu tiên hàng đầu</p>
         </div>
-        <p className="p__opensans"> auctor sit iaculis in arcu. Vulputate nulla lobortis mauris eget sit. Nulla scelerisque scelerisque congue ac consequat, aliquam molestie lectus eu. Congue iaculis integer curabitur semper sit nunc. </p>
+        <p className="p__opensans"> Vui lòng khách đến, vừa lòng khách đi. Phục vụ nhanh nhẹn, tận tâm. Không để khách hàng chờ đợi lâu. Đồ ăn đảm bảo chất lượng và an toàn thực phẩm </p>
       </div>
 
       <div className="app__chef-sign">
-        <p>Kevin Luo</p>
-        <p className="p__opensans">Chef & Founder</p>
-        <img src={images.sign} alt="sign_image" />
+        <p>Takayoshi Yamaguchi </p>
+        <p className="p__opensans">Đầu bếp kỳ cựu </p>
+        
       </div>
     </div>
   </div>

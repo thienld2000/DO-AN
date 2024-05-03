@@ -4,10 +4,10 @@ import { fetchProducts, selectAllProducts } from "../../stores/menu/productSlice
 import { React, useEffect, useState } from 'react'
 import { Tabs } from "./Tabs"
 import ProductDetailCard from "../Product/ProductDetailCard"
-import './MenuItem.css';
+import "./MenuItem.css"
 
 const MenuItem = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()  
   const products = useSelector(selectAllProducts);
   const [activeTab, setActiveTab] = useState('');
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -18,7 +18,7 @@ const MenuItem = () => {
 
   const onTabSwitch = (newActiveTab) => {
     setActiveTab(newActiveTab);
-    let categories = products.products.map((product) => product.name.name);
+    let categories = products?.products.map((product) => product.name.name);
     let index = categories.findIndex(category => newActiveTab === category);
     console.log(index);
     if (index > -1) {
@@ -32,18 +32,18 @@ const MenuItem = () => {
       {
         products.status !== 'fulfilled' ?
           <div>loading ... </div> :
-          <div className=".app__menuitem-head ">
+          <div className="app__menuitem-head ">
             {
-              products.products &&
+             products?.products &&
               <Tabs
-                list={products.products.map((product) => product.name.name)}
+                list={products?.products.map((product) => product.name.name)}
                 activeTab={activeTab}
                 onTabSwitch={onTabSwitch}
               />
             }
-            <div className="app__menuitem-sub">
+            <div className="app__menuitem-sub mx-auto">
               {
-                products.products && products.products[activeTabIndex].products.map((product, index) => {
+                products?.products && products.products[activeTabIndex].products.map((product, index) => {
                   return (
                     <ProductDetailCard key={index} product={product} />
                   )

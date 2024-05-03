@@ -1,21 +1,33 @@
+import HTMLFlipBook from "react-pageflip";
+import "./ProductDetailCard.css"
+import React from "react";
 
 const ProductDetailCard = ({ product }) => {
     return (
-        <div className="app__menuitem-sub">
-            <div className="d-flex flex-column justify-content-between align-items-center">
-                <h2 className="text-3xl">{product.name}</h2>
-                <p className="text-2xl text-gray-500">
-                    {product.description}
-                </p>
-                <div className="d-flex justify-content-between">
-                    <div className="text-3xl text-black">{product.price}</div>
-                </div>
-            </div>
-            <div className="w-100 d-flex justify-content-center">
-                <img src={product.imageUrl} className="w-40 h-40 rounded-xl object-cover" alt={product.name} />
-            </div>
+        <div className="app__menuitem-sub mx-auto">
+            <HTMLFlipBook
+                width={600}
+                height={550}
+                minWidth={600}
+                maxWidth={1000}
+                minHeight={420}
+                maxHeight={1350}
+                showCover={true}
+                flippingTime={1000}
+                style={{ margin: "0 auto" }}
+                maxShadowOpacity={0.5}
+                className="album-web"
+            >
+                {product.imageUrl.map((image, index) => (
+                    <article key={index} className="flip-page">
+                        <img src={image} alt={`Product ${index}`} />
+                        <b className="w-100 fs-4 d-flex justify-content-center text-warning">Trang thứ: {index + 1}</b>
+                    </article>
+                ))}
+            </HTMLFlipBook>
         </div>
-    )
+    );
 }
+
 
 export default ProductDetailCard;

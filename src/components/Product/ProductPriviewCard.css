@@ -1,0 +1,15 @@
+.product-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 300px;
+    height: 450px;
+    transition: transform 0.3s ease;
+}
+
+.product-image:hover img {
+    transform: scale(1.1); /* Phóng to hình ảnh khi hover */
+    z-index: 1; /* Đảm bảo hình ảnh nằm phía trên các phần tử khác */
+}

@@ -1,10 +1,10 @@
 import React from 'react'
-import { AboutUs, Chef, FindUs, Footer, Gallery, Header, Intro, Laurels, SpecialMenu } from '../container';
+import { AboutUs, Chef, FindUs, Footer, Gallery, Header, Intro, Khuyenmai, SpecialMenu } from '../container';
 import { Navbar } from '../components';
 import { Product } from '../components';
 const Restaurant = () => {
   return (
-    <div>
+    <div >
       <Navbar />
       <Header />
       <Product />
@@ -12,8 +12,8 @@ const Restaurant = () => {
       <SpecialMenu />
       <Chef />
       <Intro />
-      <Laurels />
-      <Gallery />
+      <Khuyenmai />
+      {/* <Gallery /> */}
       <FindUs />
       <Footer />
 

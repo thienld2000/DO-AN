@@ -1,43 +1,60 @@
-import React from 'react';
-import './Booking.css';
+import React, { useState } from 'react';
+import TableList from '../components/TableList';
+import BookingForm from '../components/BookingForm';
 
 const Booking = () => {
+  const [selectedTable, setSelectedTable] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [updateTableList, setUpdateTableList] = useState(false);
+
+  const handleSelectTable = (table) => {
+    setSelectedTable(table);
+  };
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+  };
+
+  const handleBookingSuccess = () => {
+    // Khi đặt bàn thành công, setUpdateTableList(true) để rerender TableList
+    setUpdateTableList(true);
+  };
+
   return (
-    <>
-      <div className="container">
-        <h1 className='header'>Đặt bàn - Yakimono</h1>
-        <form action="#" method="POST">
-          <label htmlFor="name">Họ và tên:</label>
-          <input type="text" id="name" name="name" required />
+    <div className="container border border-2 rounded">
+      <h1 className="text-center my-4 text-warning">ĐẶT BÀN </h1>
+      <div className="row justify-content-center my-5">
+      <h2 className="text-center my-4 text-warning">Tìm kiếm bàn theo ngày</h2>
+        <div className="col-md-3">
+          <input
+            className='form-control text-center '
+            type="date"
+            value={selectedDate}
+            onChange={handleDateChange}
+            min={new Date().toISOString().split('T')[0]}
+          />
+        </div>
+      </div>
+      <TableList
+        onSelectTable={handleSelectTable}
+        selectedDate={selectedDate}
+        updateTableList={updateTableList}
+      />
+      {selectedTable && (
+        <div>
+          <div className="row justify-content-center">
+            <div className="">
+              <BookingForm
+                selectedTable={selectedTable}
+                onBookingSuccess={handleBookingSuccess}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
 
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" required />
 
-          <label htmlFor="phone">Số điện thoại:</label>
-          <input type="tel" id="phone" name="phone" required />
-          <label>Set lẩu </label>
-          <select className="form-select" aria-label="Default select example" >
-            <option value="buffetneko349k">Buffet Neko 349k</option>
-            <option value="buffettanuki299k">Buffet Tanuki 299k</option>
-            <option value="buffetgodzilla239k">Buffet Godzilla 239k</option>
-          </select>
-
-      <label htmlFor="date">Ngày đặt:</label>
-      <input type="date" id="date" name="date" required />
-
-      <label htmlFor="time">Thời gian:</label>
-      <input type="time" id="time" name="time" required />
-
-      <label htmlFor="guests">Số lượng khách:</label>
-      <input type="number" id="guests" name="guests" min="1" required />
-      <label htmlFor="note">Ghi chú yêu cầu </label>
-      <input type="text" id="note" name="note" required />
-
-      <button type="submit">Đặt bàn</button>
-    </form >
-    </div >
-    </>
-    )
-}
+  );
+};
 
 export default Booking;

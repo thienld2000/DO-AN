@@ -1,11 +1,15 @@
 import Booking from './Booking';
-import Blog from './Blog';
-import LoginSignup from './LoginSignup';
+import Login from './Login';
 import Restaurent from './Restaurant';
+import Register from './Register';
+import Admin from './Admin';
+import XacNhan from './XacNhan';
 
 export{
     Booking,
-    Blog,
-    LoginSignup,
+    Login,
     Restaurent,
+    Register,
+    Admin,
+    XacNhan
 };
